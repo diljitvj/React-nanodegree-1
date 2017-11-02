@@ -28,6 +28,11 @@ class App extends Component {
   onCreateContact = (values)=>{
     console.log(values);
     ContactsApi.create(values)
+      .then((contact)=>{
+        this.setState({
+          contacts: this.state.contacts.concat(contact)
+        })
+      })
   }
   render() {
     return (
@@ -44,8 +49,13 @@ class App extends Component {
           <Route
             path="/create" exact
             render={
-              ()=>(
-                <CreateContact onCreateContact={this.onCreateContact}/>
+              ({history})=>(
+                <CreateContact onCreateContact={
+                  (contact)=>{
+                    this.onCreateContact(contact);
+                    history.push('/'); 
+                  }
+                }/>
               )
             } />
       </div>
