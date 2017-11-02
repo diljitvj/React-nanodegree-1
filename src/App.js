@@ -25,6 +25,10 @@ class App extends Component {
         }))
       })
   }
+  onCreateContact = (values)=>{
+    console.log(values);
+    ContactsApi.create(values)
+  }
   render() {
     return (
       <div className="App">
@@ -39,7 +43,11 @@ class App extends Component {
           } />
           <Route
             path="/create" exact
-           component={CreateContact} />
+            render={
+              ()=>(
+                <CreateContact onCreateContact={this.onCreateContact}/>
+              )
+            } />
       </div>
     );
   }
